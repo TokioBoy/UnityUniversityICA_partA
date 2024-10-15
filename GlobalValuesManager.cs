@@ -8,7 +8,7 @@ public class GlobalValuesManager : MonoBehaviour
     public static GlobalValuesManager Instance;
 
     // Example variables
-    public int playerLives = 3;
+    public int playerLives = -1;
     public bool lose = false;
 
     void Awake()

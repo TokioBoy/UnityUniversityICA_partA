@@ -23,7 +23,7 @@ public class LoseChecker : MonoBehaviour
             {
                 //  ак только условие выполнено, выполн€ем действи€
                 GlobalValuesManager.Instance.lose = true;
-                SceneManager.LoadScene("Earth");
+                SceneManager.LoadScene("TheStart");
 
             }
 

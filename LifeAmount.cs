@@ -4,25 +4,10 @@ using UnityEngine.UI; // Для работы с UI элементами
 
 public class LifeAmount : MonoBehaviour
 {
-    // Статическая переменная для хранения единственного экземпляра
-    public static LifeAmount Instance;
 
     public Image[] heartIcons; // Массив для хранения иконок
 
-    public void Awake()
-    {
-        // Если экземпляра еще нет, делаем этот экземпляром и не уничтожаем при загрузке новой сцены
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject); // Объект будет существовать между сценами
-        }
-        else
-        {
-            // Если уже существует экземпляр, уничтожаем новый объект
-            Destroy(gameObject);
-        }
-    }
+    
 
     private void Start()
     {
@@ -33,7 +18,7 @@ public class LifeAmount : MonoBehaviour
     IEnumerator CheckCondition()
     {
         // Проверка пока игрок не умер
-        while (GlobalValuesManager.Instance.lose == false)
+        while (GlobalValuesManager.Instance.playerLives != 0)
         {
             // В реальной игре здесь будет проверка на потерю жизни
             // Если количество жизней изменилось, обновляем отображение
