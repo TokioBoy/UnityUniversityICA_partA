@@ -19,6 +19,7 @@ public class HellDieZone : MonoBehaviour
             Player.transform.position = respawnPoint.transform.position;
         } else if (GlobalValuesManager.Instance.playerLives == 0)
         {
+            ExitHellScript.hasKey = false;
             SceneManager.LoadScene("TheStart");
         }
     }
