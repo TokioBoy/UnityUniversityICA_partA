@@ -10,17 +10,21 @@ public class HellDieZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Access playerLives via the Singleton instance
-        GlobalValuesManager.Instance.playerLives--;
+        if (other.CompareTag("Player"))
+        {
+            // Access playerLives via the Singleton instance
+            GlobalValuesManager.Instance.playerLives--;
 
-        // Move the player to the respawn point
-        if (GlobalValuesManager.Instance.playerLives != 0)
-        {
-            Player.transform.position = respawnPoint.transform.position;
-        } else if (GlobalValuesManager.Instance.playerLives == 0)
-        {
-            ExitHellScript.hasKey = false;
-            SceneManager.LoadScene("TheStart");
+            // Move the player to the respawn point
+            if (GlobalValuesManager.Instance.playerLives != 0)
+            {
+                Player.transform.position = respawnPoint.transform.position;
+            }
+            else if (GlobalValuesManager.Instance.playerLives == 0)
+            {
+                ExitHellScript.hasKey = false;
+                SceneManager.LoadScene("TheStart");
+            }
         }
     }
 }
