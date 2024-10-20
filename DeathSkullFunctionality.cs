@@ -9,6 +9,7 @@ public class DeathSkullFunctionality : MonoBehaviour
     public float speed = 2.0f; // Speed at which the skull moves
 
     [SerializeField] private Transform respawnPoint;
+    public float pitchOffset = 10.0f; // Manual adjustment for the skull's tilt angle
 
     // Update is called once per frame
     void Update()
@@ -23,8 +24,15 @@ public class DeathSkullFunctionality : MonoBehaviour
             // Move the skull toward the player
             transform.position += direction * speed * Time.deltaTime;
 
-            // Rotate the skull to face the player
-            transform.LookAt(player);
+            // Get the player's position and apply the pitch offset (manual tilt adjustment)
+            Vector3 lookDirection = player.position - transform.position;
+            Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
+
+            // Apply pitch (X-axis rotation) adjustment manually
+            targetRotation *= Quaternion.Euler(pitchOffset, 0, 0);
+
+            // Rotate the skull to face the player with the pitch offset
+            transform.rotation = targetRotation;
         }
     }
 

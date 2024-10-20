@@ -19,19 +19,19 @@ public class GameModeSelector : MonoBehaviour
             {
                 GlobalValuesManager.Instance.playerLives = 3;
                 Debug.Log("Game Mode set to Easy.");
-                SceneManager.LoadScene("Testing");
+                SceneManager.LoadScene("Hell");
             }
             if (gameObject == exampleTwo)
             {
                 GlobalValuesManager.Instance.playerLives = 2;
                 Debug.Log("Game Mode set to Medium.");
-                SceneManager.LoadScene("Testing");
+                SceneManager.LoadScene("Hell");
             }
             if (gameObject == exampleThree)
             {
                 GlobalValuesManager.Instance.playerLives = 1;
                 Debug.Log("Game Mode set to Hard.");
-                SceneManager.LoadScene("Testing");
+                SceneManager.LoadScene("Hell");
             }
         }
     }

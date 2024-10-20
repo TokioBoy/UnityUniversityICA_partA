@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KeyToEarth : MonoBehaviour
+public class KeyToHeaven : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
@@ -10,7 +10,7 @@ public class KeyToEarth : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             // Set the hasKey flag in ExitHellScript to true
-            ExitHellScript.hasKey = true;
+            ExitEarthScript.hasKey = true;
             GlobalValuesManager.Instance.playerLives++;
 
             // Hide the current game object (this key object)

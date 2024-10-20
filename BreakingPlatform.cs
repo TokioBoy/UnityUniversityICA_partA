@@ -11,7 +11,7 @@ public class BreakingPlatform : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         // Check if the object that entered the trigger is tagged as "Player"
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && GlobalValuesManager.Instance.playerLives == 1)
         {
             // Start a coroutine to remove the platform after a delay
             StartCoroutine(RemovePlatform());

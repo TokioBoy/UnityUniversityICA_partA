@@ -29,7 +29,7 @@ public class LogsSpawnerFunctionality : MonoBehaviour
     void SpawnLog()
     {
         // Спавним бревно с поворотом на 90 градусов по X
-        GameObject log = Instantiate(logPrefab, spawnPoint.position, Quaternion.Euler(90, 90, 0));
+        GameObject log = Instantiate(logPrefab, spawnPoint.position, Quaternion.Euler(0, 0, 0));
 
         Rigidbody rb = log.GetComponent<Rigidbody>();
         if (rb != null)
