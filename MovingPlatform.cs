@@ -9,28 +9,40 @@ public class MovingPlatform : MonoBehaviour
     public float speed = 2.0f; // Platform movement speed
     private Vector3 targetPosition; // Target position (either A or B)
 
+    private bool isPlayerOnPlatform = false; // Flag to check if the player is on the platform
+    private bool hasKey = false; // Flag to check if the player has the key
+    private Transform playerTransform; // Reference to the player's transform
+    private Vector3 lastPlatformPosition; // To track platform's movement
+
     private void Start()
     {
-        // Start moving towards point B
-        targetPosition = pointB.position;
+        // Initially, the platform does not move
+        targetPosition = transform.position;
+        lastPlatformPosition = transform.position; // Initialize last platform position
     }
 
     private void Update()
     {
-        // Move the platform towards the target position
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
-
-        // Check if the platform reached the target, and switch between point A and B
-        if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+        // Move the platform only if the player is on it and has the key
+        if (isPlayerOnPlatform && hasKey)
         {
-            if (targetPosition == pointB.position)
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+
+            // Check if the platform reached the target, and switch between point A and B
+            if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
             {
-                targetPosition = pointA.position;
+                targetPosition = targetPosition == pointB.position ? pointA.position : pointB.position;
             }
-            else
+
+            // Move the player with the platform based on platform movement
+            if (playerTransform != null)
             {
-                targetPosition = pointB.position;
+                Vector3 platformMovement = transform.position - lastPlatformPosition;
+                playerTransform.position += platformMovement; // Move player by the same amount as the platform
             }
+
+            // Update the last platform position for the next frame
+            lastPlatformPosition = transform.position;
         }
     }
 
@@ -38,8 +50,14 @@ public class MovingPlatform : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // Make the player a child of the platform when they step on it
-            other.transform.SetParent(transform);
+            
+            if (ExitEarthScript.hasKey)
+            {
+                hasKey = true;
+                isPlayerOnPlatform = true; // Player is on the platform, start movement
+                playerTransform = other.transform; // Save reference to the player's transform
+                targetPosition = pointB.position; // Start moving towards point B
+            }
         }
     }
 
@@ -47,8 +65,9 @@ public class MovingPlatform : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // Remove the player from being a child of the platform when they step off
-            other.transform.SetParent(null);
+            // Player left the platform, stop movement
+            isPlayerOnPlatform = false;
+            playerTransform = null; // Remove the reference to the player
         }
     }
 }

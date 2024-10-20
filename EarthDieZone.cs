@@ -26,7 +26,11 @@ public class EarthDieZone : MonoBehaviour
                 ExitEarthScript.hasKey = false;
                 SceneManager.LoadScene("TheStart");
             }
+        }
 
+        if (!other.CompareTag("Player"))
+        {
+            Destroy(other.gameObject);
         }
     }
 }
