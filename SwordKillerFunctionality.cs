@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SwordKillerFunctionality : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class SwordKillerFunctionality : MonoBehaviour
     private bool movingToB = true;  // Направление движения
     private bool isWaiting = false; // Флаг для отслеживания паузы
     private Quaternion targetRotation;  // Целевая ориентация меча
+    [SerializeField] private Transform respawnPoint;
+    public Transform player;
 
     void Start()
     {
@@ -37,6 +40,31 @@ public class SwordKillerFunctionality : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        // Check if the object the skull collides with is the player
+        if (other.CompareTag("Player"))
+        {
+            HandleSwordTouch();
+        }
+    }
+
+    // A method that defines what happens when the skull touches the player
+    void HandleSwordTouch()
+    {
+        Debug.Log("Spear has touched the player!");
+
+        GlobalValuesManager.Instance.playerLives--;
+        player.transform.position = respawnPoint.transform.position;
+
+        // If the player has no lives left, restart the game
+        if (GlobalValuesManager.Instance.playerLives == 0)
+        {
+            ExitHellScript.hasKey = false;
+            SceneManager.LoadScene("TheStart");
+        }
+    }
+
     // Корутин для поворота, ожидания и продолжения движения
     IEnumerator RotateAndWaitBeforeMove()
     {
@@ -54,7 +82,7 @@ public class SwordKillerFunctionality : MonoBehaviour
         }
 
         // Ждем 3 секунды после завершения поворота
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
 
         // Изменение направления движения
         movingToB = !movingToB;
