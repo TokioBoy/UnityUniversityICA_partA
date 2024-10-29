@@ -61,6 +61,9 @@ public class SwordKillerFunctionality : MonoBehaviour
         if (GlobalValuesManager.Instance.playerLives == 0)
         {
             ExitHellScript.hasKey = false;
+            ExitEarthScript.hasKey = false;
+            ExitHeavenScript.hasKey = false;
+            GlobalValuesManager.Instance.elapsedTime = 0;
             SceneManager.LoadScene("TheStart");
         }
     }

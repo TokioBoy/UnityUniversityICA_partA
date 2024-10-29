@@ -16,17 +16,25 @@ public class HeavenDieZone : MonoBehaviour
             GlobalValuesManager.Instance.playerLives--;
 
             // Move the player to the respawn point
-            if (GlobalValuesManager.Instance.playerLives != 0)
+            if (GlobalValuesManager.Instance.playerLives > 0)
             {
-                Player.transform.position = respawnPoint.transform.position;
+                StartCoroutine(RespawnWithDelay());
             }
             else if (GlobalValuesManager.Instance.playerLives == 0)
             {
                 ExitHellScript.hasKey = false;
                 ExitEarthScript.hasKey = false;
                 ExitHeavenScript.hasKey = false;
+                GlobalValuesManager.Instance.elapsedTime = 0;
                 SceneManager.LoadScene("TheStart");
             }
         }
+    }
+
+    private IEnumerator RespawnWithDelay()
+    {
+        yield return new WaitForSeconds(1.5f);
+        // Move the player to the respawn point
+        Player.position = respawnPoint.position;
     }
 }

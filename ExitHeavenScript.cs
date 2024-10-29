@@ -10,7 +10,7 @@ public class ExitHeavenScript : MonoBehaviour
     {
         if (hasKey == true)
         {
-            SceneManager.LoadScene("TheStart");
+            SceneManager.LoadScene("GameEnd");
         }
     }
 }

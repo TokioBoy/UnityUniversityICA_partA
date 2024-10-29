@@ -10,6 +10,7 @@ public class GlobalValuesManager : MonoBehaviour
     // Example variables
     public int playerLives = -1;
     public bool lose = false;
+    public float elapsedTime;
 
     void Awake()
     {

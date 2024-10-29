@@ -28,6 +28,8 @@ public class LogKillingFunctionality : MonoBehaviour
         if (GlobalValuesManager.Instance.playerLives == 0)
         {
             ExitHellScript.hasKey = false;
+            ExitEarthScript.hasKey = false;
+            GlobalValuesManager.Instance.elapsedTime = 0;
             SceneManager.LoadScene("TheStart");
         }
     }
